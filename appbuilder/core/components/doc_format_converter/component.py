@@ -216,7 +216,7 @@ class DocFormatConverter(Component):
         """
         tool eval
         """
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         file_url = kwargs.get("file_url", None)
         page_num = kwargs.get("page_num", '')
         if page_num:
@@ -234,7 +234,7 @@ class DocFormatConverter(Component):
             if not file_url:
                 raise InvalidRequestArgumentError("request format error, file url is not set")
         try:
-            result = self.run(Message({"file_path": file_url, "page_num": page_num}), request_id)
+            result = self.run(Message({"file_path": file_url, "page_num": page_num}), traceid)
         except AppBuilderServerException:
             raise
         except Exception as e:

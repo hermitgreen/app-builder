@@ -178,7 +178,7 @@ class TableOCR(Component):
 
     def tool_eval(self, name: str, streaming: bool, **kwargs):
         result = {}
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         file_names = kwargs.get("file_names", None)
         if not file_names:
             file_names = kwargs.get("files")
@@ -195,7 +195,7 @@ class TableOCR(Component):
             req = TableOCRRequest()
             req.url = file_url
             req.cell_contents = "false"
-            resp = self._recognize(req, request_id)
+            resp = self._recognize(req, traceid)
             tables_result = proto.Message.to_dict(resp)["tables_result"]
             markdowns = self.get_table_markdown(tables_result)
             result[file_name] = markdowns

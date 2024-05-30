@@ -182,7 +182,7 @@ class StyleWriting(CompletionBaseComponent):
         """
         tool_eval for function call
         """
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         query = kwargs.get("query", None)
         if not query:
             raise ValueError("param `query` is required")
@@ -201,7 +201,7 @@ class StyleWriting(CompletionBaseComponent):
         temperature = model_configs.get("temperature", 1e-10)
         top_p = model_configs.get("top_p", 0.0)
         message = super().run(message=msg, style_query=style, length=length, stream=False,
-                              temperature=temperature, top_p=top_p, request_id=request_id)
+                              temperature=temperature, top_p=top_p, request_id=traceid)
         
         if streaming:
             yield str(message.content)

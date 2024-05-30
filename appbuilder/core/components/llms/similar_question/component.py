@@ -114,7 +114,7 @@ class SimilarQuestion(CompletionBaseComponent):
         """
         tool_eval for function call
         """
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         query = kwargs.get("query", None)
         if not query:
             raise ValueError("param `query` is required")
@@ -122,7 +122,7 @@ class SimilarQuestion(CompletionBaseComponent):
         model_configs = kwargs.get('model_configs', {})
         temperature = model_configs.get("temperature", 1e-10)
         top_p = model_configs.get("top_p", 0.0)
-        message = super().run(message=msg, stream=False, temperature=temperature, top_p=top_p, request_id=request_id)
+        message = super().run(message=msg, stream=False, temperature=temperature, top_p=top_p, request_id=traceid)
 
         if streaming:
             yield str(message.content)

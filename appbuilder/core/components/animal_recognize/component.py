@@ -157,11 +157,11 @@ class AnimalRecognition(Component):
                    返回：
                        Union[Generator[str, None, None], str]: 动物识别结果，包括识别出的动物类别和相应的置信度信息
         """
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         img_name = kwargs.get("img_name", "")
         img_url = kwargs.get("img_url", "")
         file_urls = kwargs.get("file_urls", {})
-        rec_res = self._recognize_w_post_process(img_name, img_url, file_urls, request_id)
+        rec_res = self._recognize_w_post_process(img_name, img_url, file_urls, traceid)
         if streaming:
             yield rec_res
         else:

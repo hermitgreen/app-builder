@@ -149,7 +149,7 @@ class ObjectRecognition(Component):
         """
         object_recognize for function call
         """
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         img_url = kwargs.get("img_url", None)
         if not img_url:
             file_urls = kwargs.get("file_urls", {})
@@ -162,7 +162,7 @@ class ObjectRecognition(Component):
                 raise InvalidRequestArgumentError(f"request format error, file {img_name} url does not exist")
         score_threshold = kwargs.get("score_threshold", 0.5)
         req = ObjectRecognitionRequest(url=img_url)
-        result = proto.Message.to_dict(self._recognize(req, request_id))
+        result = proto.Message.to_dict(self._recognize(req, traceid))
         results = []
         for item in result["result"]:
             if item["score"] < score_threshold and len(results) > 0:

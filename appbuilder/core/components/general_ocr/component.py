@@ -160,7 +160,7 @@ class GeneralOCR(Component):
         """
         general_ocr for function call
         """
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         img_url = kwargs.get("img_url", None)
         if not img_url:
             file_urls = kwargs.get("file_urls", {})
@@ -176,7 +176,7 @@ class GeneralOCR(Component):
         req = GeneralOCRRequest(url=img_url)
         req.detect_direction = "true"
         req.language_type = "auto_detect"
-        result = proto.Message.to_dict(self._recognize(req, request_id))
+        result = proto.Message.to_dict(self._recognize(req, traceid))
         results = {
             "识别结果": " \n".join(item["words"] for item in result["words_result"])
         }

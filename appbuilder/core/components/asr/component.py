@@ -192,14 +192,14 @@ class ASR(Component):
         _, file_type = os.path.splitext(os.path.basename(urlparse(file_url).path))
         file_type = file_type.strip('.')
 
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         req = ShortSpeechRecognitionRequest()
         req.speech = requests.get(file_url).content
         req.format = file_type
-        req.cuid = request_id if request_id else str(uuid.uuid4())
+        req.cuid = traceid if traceid else str(uuid.uuid4())
         req.dev_pid = "80001"
         req.rate = 16000
-        result = proto.Message.to_dict(self._recognize(req, request_id=request_id))
+        result = proto.Message.to_dict(self._recognize(req, request_id=traceid))
         results = {
             "识别结果": " \n".join(item for item in result["result"])
         }

@@ -151,7 +151,7 @@ class QRcodeOCR(Component):
 
     def tool_eval(self, name: str, streaming: bool, **kwargs):
         result = {}
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         file_names = kwargs.get("file_names", None)
         location = kwargs.get("locations", "false")
         if not file_names:
@@ -173,9 +173,10 @@ class QRcodeOCR(Component):
                     f"illegal location, expected location is 'true' or 'false', got {location}"
                 )
             req.location = location
-            resp = self._recognize(req, request_id)
-            result[file_name] = [item["text"]
-                                 for item in proto.Message.to_dict(resp).get("codes_result", [])]
+            resp = self._recognize(req, traceid)
+            result[file_name] = [
+                item["text"] for item in proto.Message.to_dict(resp).get("codes_result", [])
+            ]
 
         result = json.dumps(result, ensure_ascii=False)
         if streaming:

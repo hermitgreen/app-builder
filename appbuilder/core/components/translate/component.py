@@ -150,7 +150,7 @@ class Translation(Component):
         """
         translate for function call
         """
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         req = TranslateRequest()
         text = kwargs.get("q", None)
         if not text:
@@ -158,7 +158,7 @@ class Translation(Component):
         req.q = text
         to_lang = kwargs.get("to_lang", "en")
         req.to_lang = to_lang
-        results = proto.Message.to_dict(self._translate(req, request_id))["result"]
+        results = proto.Message.to_dict(self._translate(req, traceid))["result"]
         trans_result = results["trans_result"]
         res = {
             "原文本": "\n ".join(item["src"] for item in trans_result),

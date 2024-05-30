@@ -151,7 +151,7 @@ class MixCardOCR(Component):
 
     def tool_eval(self, name: str, streaming: bool, **kwargs):
         result = {}
-        request_id = kwargs.get("traceid")
+        traceid = kwargs.get("traceid")
         file_names = kwargs.get("file_names", None)
         if not file_names:
             file_names = kwargs.get("files")
@@ -170,7 +170,7 @@ class MixCardOCR(Component):
             request.detect_quality = "false"
             request.detect_photo = "false"
             request.detect_card = "false"
-            response = self._recognize(request, request_id)
+            response = self._recognize(request, traceid)
             out = MixCardOCROutMsg()
             for res in response.words_result:
                 card_type = res.card_info.card_type
